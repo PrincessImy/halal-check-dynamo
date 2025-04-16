@@ -53,7 +53,7 @@ const Index = () => {
       >
         <HalalHeader />
         
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <div className="bg-white rounded-xl shadow-md p-6 md:p-8 border border-halalui-beige/50">
           <div className="flex flex-col items-center space-y-8">
             <HalalCheckForm onSubmit={checkIfHalal} isLoading={isLoading} />
             
@@ -63,8 +63,14 @@ const Index = () => {
           </div>
         </div>
         
-        <footer className="mt-12 text-center text-sm text-gray-500">
-          <p>© 2025 HalalCheck - App créée pour un projet de fin d'études</p>
+        <footer className="mt-12 text-center space-y-4">
+          <p className="text-sm text-gray-600 max-w-lg mx-auto">
+            Halal AI utilise l'intelligence artificielle pour analyser les ingrédients et vous garantir
+            une alimentation conforme à vos valeurs. Saisissez les ingrédients pour vérifier instantanément.
+          </p>
+          <p className="text-xs text-gray-500">
+            © 2025 HalalCheck - App créée pour un projet de fin d'études
+          </p>
         </footer>
       </motion.div>
       <Toaster />

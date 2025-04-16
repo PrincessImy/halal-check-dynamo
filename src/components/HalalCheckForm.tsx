@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface HalalCheckFormProps {
   onSubmit: (ingredients: string) => void;
@@ -12,7 +19,17 @@ interface HalalCheckFormProps {
 
 const HalalCheckForm: React.FC<HalalCheckFormProps> = ({ onSubmit, isLoading }) => {
   const [ingredients, setIngredients] = useState('');
+  const [category, setCategory] = useState('');
   const { toast } = useToast();
+
+  const categories = [
+    { value: "boissons", label: "Boissons" },
+    { value: "snacks", label: "Snacks et Confiseries" },
+    { value: "plats", label: "Plats préparés" },
+    { value: "produits_laitiers", label: "Produits laitiers" },
+    { value: "viandes", label: "Viandes et Poissons" },
+    { value: "autre", label: "Autre" },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +49,24 @@ const HalalCheckForm: React.FC<HalalCheckFormProps> = ({ onSubmit, isLoading }) 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-lg">
       <div className="space-y-2">
+        <label htmlFor="category" className="text-lg font-medium text-halalui-text">
+          Catégorie du produit
+        </label>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-full bg-white border-halalui-beige-dark focus:border-halalui-green">
+            <SelectValue placeholder="Sélectionnez une catégorie (boissons, snacks, etc.)" />
+          </SelectTrigger>
+          <SelectContent className="bg-white border-halalui-beige">
+            {categories.map((category) => (
+              <SelectItem key={category.value} value={category.value}>
+                {category.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      
+      <div className="space-y-2">
         <label htmlFor="ingredients" className="text-lg font-medium text-halalui-text">
           Ingrédients ou description du produit
         </label>
@@ -47,7 +82,7 @@ const HalalCheckForm: React.FC<HalalCheckFormProps> = ({ onSubmit, isLoading }) 
       <Button 
         type="submit" 
         disabled={isLoading}
-        className="w-full bg-halalui-green hover:bg-halalui-green-light text-white py-2 px-4 rounded-md transition-colors duration-300"
+        className="w-full bg-halalui-green hover:bg-halalui-green-light text-white py-2 px-4 rounded-md transition-colors duration-300 shadow-md"
       >
         {isLoading ? (
           <>
